@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { TitleHead } from "../components/TitleHead";
 import axios from "axios";
 import { create } from "zustand";
@@ -99,12 +99,12 @@ function HomePage() {
           <ul className="flex flex-col items-start outline mt-16 space-y-5">
             {/* Chat Bubble */}
             <Assistant
-              greet="How can we assist you today ?"
-              chips={[
-                "Can you explain how machine learning works?",
-                "What are the latest trends in technology?",
-                "Can you help me plan a trip?",
-              ]}
+              greet="Welcome to our hotel's restaurant! How can I assist you today?"
+              answer={` Here are some options:
+btn[I want to check out room options]
+btn[I want to make a reservation]
+btn[I am just browsing]
+Please choose an option by clicking the button, and I will assist you accordingly.`}
             />
             {messageHistory.map((msgs, idx) => {
               if (msgs.role == "user") {
@@ -342,17 +342,15 @@ function Loading() {
   );
 }
 
-function Assistant({
-  greet,
-  answer,
-  chips,
-}: {
-  greet?: string;
-  answer?: string;
-  chips?: string[];
-}) {
+function Assistant({ greet, answer }: { greet?: string; answer?: string }) {
   let { prompt, setPrompt, messageHistory, addMessage } = useStore();
+  const [parsedText, setParsedText] = useState<{
+    buttons: string[];
+    cleanedText: string;
+  }>();
+
   useEffect(() => {
+    setParsedText(parseButtons(answer || ""));
     document.getElementById("answer")?.scrollIntoView({
       behavior: "smooth",
     });
@@ -385,19 +383,17 @@ function Assistant({
         <ellipse cx={19} cy="18.6554" rx="3.75" ry="3.6" fill="white" />
       </svg>
       <div className="space-y-3">
-        {greet && (
-          <h2 className="font-medium text-gray-800 dark:text-white">
-            How can we help?
-          </h2>
+        {greet && greet.length > 0 && (
+          <h2 className="font-medium text-gray-800 dark:text-white">{greet}</h2>
         )}
         {answer && (
           <h2 className=" text-gray-800 dark:text-white markdown">
-            <Markdown>{answer}</Markdown>
+            <Markdown>{parsedText?.cleanedText}</Markdown>
           </h2>
         )}
         <div>
-          {chips &&
-            chips.map((ch, idx) => {
+          {parsedText?.buttons &&
+            parsedText.buttons.map((ch, idx) => {
               return (
                 <button
                   onClick={() => postQuery(ch, addMessage, messageHistory)}
@@ -449,5 +445,27 @@ const User = ({ answer }: { answer: string }) => {
     </li>
   );
 };
+
+function parseButtons(text: string) {
+  // Regular expression to match btn[option]
+  const buttonRegex = /btn\[([^\]]+)\]/g;
+
+  // Array to store button options
+  const buttons: string[] = [];
+
+  // Replace function to capture button options and remove them from text
+  const cleanedText = text.replace(buttonRegex, (match, p1) => {
+    buttons.push(p1);
+    return "";
+  });
+
+  // Trim the cleaned text to remove any leading/trailing whitespace
+  const cleanedTextTrimmed = cleanedText.trim();
+
+  return {
+    buttons: buttons,
+    cleanedText: cleanedTextTrimmed,
+  };
+}
 
 export default HomePage;
