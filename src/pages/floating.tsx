@@ -6,7 +6,7 @@ import Lottie from "react-lottie-player";
 import loadingJson from "../loading.json";
 import speechJson from "../speech.json";
 import { AudioRecorder, useAudioRecorder } from "react-audio-voice-recorder";
-import getSound from "./../textToSpeech";
+import getSound from "../textToSpeech";
 import Markdown from "react-markdown";
 
 type message = {
@@ -81,51 +81,36 @@ function HomePage() {
   let { messageHistory } = useStore();
 
   return (
-    <div
-      style={{
-        backgroundImage: "linear-gradient( 135deg, #6685ff 10%, #123597 100%)",
-      }}
-      className="flex flex-col w-full h-screen justify-center items-center "
-    >
-      {/* Content */}
-
-      <div className="flex flex-col max-w-[900px] h-[90%] mx-auto w-full bg-white rounded-xl overflow-hidden shadow-2xl">
-        <div
-          id="scroll"
-          className="py-10 lg:py-14 flex flex-col h-full overflow-scroll "
-        >
-          {<TitleHead />}
-          {/* End Title */}
-          <ul className="flex flex-col items-start outline mt-16 space-y-5">
-            {/* Chat Bubble */}
-            <Assistant
-              greet="Welcome to our hotel's restaurant! How can I assist you today?"
-              answer={` Here are some options:
+    <div className="flex flex-col max-w-[300px] max-h-[500px] mx-auto w-full bg-white rounded-xl overflow-hidden shadow-2xl py-4">
+      <div id="scroll" className="py-0  flex flex-col h-full overflow-scroll ">
+        {/* End Title */}
+        {<TitleHead />}
+        <ul className="flex flex-col items-start outline mt-4 space-y-5">
+          <Assistant
+            greet="Welcome to our hotel's restaurant! How can I assist you today?"
+            answer={` Here are some options:
 btn[I want to check out room options]
 btn[I want to make a reservation]
 btn[I am just browsing]
 Please choose an option by clicking the button, and I will assist you accordingly.`}
-            />
-            {messageHistory.map((msgs, idx) => {
-              if (msgs.role == "user") {
-                return <User key={"usr" + idx} answer={msgs.content} />;
-              }
-              if (msgs.role == "assistant") {
-                return <Assistant key={"ast" + idx} answer={msgs.content} />;
-              }
-            })}
-            {messageHistory.length > 0 &&
-              messageHistory[messageHistory.length - 1].role == "user" && (
-                <Loading />
-              )}
-          </ul>
-        </div>
-        {/* Search */}
-        {<Search />}
-        {/* End Search */}
+          />
+          {messageHistory.map((msgs, idx) => {
+            if (msgs.role == "user") {
+              return <User key={"usr" + idx} answer={msgs.content} />;
+            }
+            if (msgs.role == "assistant") {
+              return <Assistant key={"ast" + idx} answer={msgs.content} />;
+            }
+          })}
+          {messageHistory.length > 0 &&
+            messageHistory[messageHistory.length - 1].role == "user" && (
+              <Loading />
+            )}
+        </ul>
       </div>
-
-      {/* End Content */}
+      {/* Search */}
+      {<Search />}
+      {/* End Search */}
     </div>
   );
 }
@@ -222,12 +207,12 @@ const Search = () => {
   }
 
   return (
-    <footer className="mt-auto z-10 bg-white border-t border-gray-200 pt-2 pb-3 sm:pt-4 sm:pb-6 dark:bg-slate-900 dark:border-gray-700">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="mt-auto z-10 bg-white border-t border-gray-200  ">
+      <div className="max-w-4xl px-3 pt-2">
         {/* Input */}
         <div className="relative border">
           <textarea
-            className="text-black p-4 pb-12 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+            className="text-black p-1   block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
             placeholder="Ask me anything..."
             value={prompt}
             onChange={(e) => {
@@ -384,10 +369,12 @@ function Assistant({ greet, answer }: { greet?: string; answer?: string }) {
       </svg>
       <div className="space-y-3">
         {greet && greet.length > 0 && (
-          <h2 className="font-medium text-gray-800 dark:text-white">{greet}</h2>
+          <h2 className="font-medium text-gray-800 dark:text-white text-sm">
+            {greet}
+          </h2>
         )}
         {answer && (
-          <h2 className=" text-gray-800 dark:text-white markdown">
+          <h2 className=" text-gray-800 dark:text-white markdown text-xs">
             <Markdown>{parsedText?.cleanedText}</Markdown>
           </h2>
         )}
@@ -399,7 +386,7 @@ function Assistant({ greet, answer }: { greet?: string; answer?: string }) {
                   onClick={() => postQuery(ch, addMessage, messageHistory)}
                   key={idx + "chips"}
                   type="button"
-                  className="mb-2.5 me-1.5 py-2 px-3 inline-flex justify-center items-center gap-x-2 rounded-lg border border-blue-600 bg-white text-blue-600 align-middle hover:bg-blue-50 text-sm dark:bg-slate-900 dark:text-blue-500 dark:border-blue-500 dark:hover:text-blue-400 dark:hover:border-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  className="mb-2.5 me-1.5 py-1 px-2 inline-flex justify-center items-center gap-x-2 rounded-lg border border-blue-600 bg-white text-blue-600 align-middle hover:bg-blue-50 text-xs dark:bg-slate-900 dark:text-blue-500 dark:border-blue-500 dark:hover:text-blue-400 dark:hover:border-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
                   {ch}
                 </button>
