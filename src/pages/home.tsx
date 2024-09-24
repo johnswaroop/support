@@ -250,7 +250,7 @@ const Search = () => {
                     setShowRecord(true);
                   }}
                   type="button"
-                  className="inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg bg-blue-600 text-gray-500 hover:text-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:text-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  className="inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg bg-violet-600 text-gray-500 hover:text-violet-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:text-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
                   <svg
                     className="flex-shrink-0 size-4"
@@ -274,7 +274,7 @@ const Search = () => {
                 <button
                   onClick={() => postQuery(prompt, addMessage, messageHistory)}
                   type="button"
-                  className="inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg text-white bg-blue-600 hover:bg-blue-500 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  className="inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg text-white bg-violet-600 hover:bg-blue-500 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
                   <svg
                     className="flex-shrink-0 size-3.5"
@@ -401,7 +401,7 @@ function Assistant({ greet, answer }: { greet?: string; answer?: string }) {
                   onClick={() => postQuery(ch, addMessage, messageHistory)}
                   key={idx + "chips"}
                   type="button"
-                  className="mb-2.5 me-1.5 py-2 px-3 inline-flex justify-center items-center gap-x-2 rounded-lg border border-blue-600 bg-white text-blue-600 align-middle hover:bg-blue-50 text-sm dark:bg-slate-900 dark:text-blue-500 dark:border-blue-500 dark:hover:text-blue-400 dark:hover:border-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  className="mb-2.5 me-1.5 py-2 px-3 inline-flex justify-center items-center gap-x-2 rounded-lg border border-violet-600 bg-white text-violet-600 align-middle hover:bg-blue-50 text-sm dark:bg-slate-900 dark:text-blue-500 dark:border-blue-500 dark:hover:text-blue-400 dark:hover:border-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
                   {ch}
                 </button>
@@ -413,7 +413,7 @@ function Assistant({ greet, answer }: { greet?: string; answer?: string }) {
             onClick={() => {
               answer && triggerSound(answer);
             }}
-            className="text-black bg-blue-600 p-1 rounded-full cursor-pointer"
+            className="text-black bg-violet-600 p-1 rounded-full cursor-pointer"
           >
             <svg
               className="h-4 w-4 brightness-0 invert-[100%] "
@@ -440,7 +440,7 @@ const User = ({ answer }: { answer: string }) => {
             </span>
           </span>
           <div className="grow mt-2 space-y-3">
-            <p className="text-gray-800 dark:text-gray-200">{answer}</p>
+            <p className="text-gray-800 dark:text-gray-200 text-sm">{answer}</p>
           </div>
         </div>
       </div>

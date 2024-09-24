@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import { TitleHead } from "../components/TitleHead";
 import axios from "axios";
@@ -59,9 +60,12 @@ const postQuery = async (
   let resMsg = res.data.result.message as message;
   addMessage(resMsg);
   setTimeout(() => {
-    var objDiv = document.getElementById("scroll");
-    objDiv!.scrollTop = objDiv!.scrollHeight;
-  }, 0);
+    const myDiv = document.getElementById("scroll");
+    myDiv?.scrollTo({
+      top: myDiv.scrollHeight,
+      behavior: "smooth",
+    });
+  }, 500);
 };
 
 function playSound(url: string) {
@@ -210,9 +214,9 @@ const Search = () => {
     <footer className="mt-auto z-10 bg-white border-t border-gray-200  ">
       <div className="max-w-4xl px-3 pt-2">
         {/* Input */}
-        <div className="relative border">
+        <div className="relative border flex">
           <textarea
-            className="text-black p-1   block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+            className="text-black p-1   block w-[83%] border-gray-200 rounded-lg text-sm active:outline-violet-600 focus:outline-violet-600 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
             placeholder="Ask me anything..."
             value={prompt}
             onChange={(e) => {
@@ -220,20 +224,20 @@ const Search = () => {
             }}
           />
           {/* Toolbar */}
-          <div className="absolute bottom-px inset-x-px p-2 rounded-b-md bg-white dark:bg-slate-900">
-            <div className="flex justify-between items-center">
+          <div className="absolute w-min ml-auto bottom-px inset-x-px p-2 rounded-b-md  dark:bg-slate-900">
+            <div className="flex justify-between items-center w-min ml-auto">
               {/* Button Group */}
               <div className="flex items-center"></div>
               {/* End Button Group */}
               {/* Button Group */}
-              <div className="flex hidden items-center gap-x-1">
+              <div className="flex items-center gap-x-1">
                 {/* Mic Button */}
                 <button
                   onClick={() => {
                     setShowRecord(true);
                   }}
                   type="button"
-                  className="inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg bg-blue-600 text-gray-500 hover:text-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:text-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  className="hidden  inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg bg-violet-600 text-gray-500 hover:text-violet-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:hover:text-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
                   <svg
                     className="flex-shrink-0 size-4"
@@ -257,7 +261,7 @@ const Search = () => {
                 <button
                   onClick={() => postQuery(prompt, addMessage, messageHistory)}
                   type="button"
-                  className="inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg text-white bg-blue-600 hover:bg-blue-500 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  className="inline-flex flex-shrink-0 justify-center items-center size-8 rounded-lg text-white bg-violet-600 hover:bg-blue-500 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
                   <svg
                     className="flex-shrink-0 size-3.5"
@@ -294,27 +298,11 @@ function Loading() {
       id="loading"
       className="relative max-w-4xl py-2 px-4 sm:px-6 lg:px-8 flex gap-x-2 sm:gap-x-4"
     >
-      <svg
-        className="flex-shrink-0 w-[2.375rem] h-[2.375rem] rounded-full"
-        width={38}
-        height={38}
-        viewBox="0 0 38 38"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect width={38} height={38} rx={6} fill="#2563EB" />
-        <path
-          d="M10 28V18.64C10 13.8683 14.0294 10 19 10C23.9706 10 28 13.8683 28 18.64C28 23.4117 23.9706 27.28 19 27.28H18.25"
-          stroke="white"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M13 28V18.7552C13 15.5104 15.6863 12.88 19 12.88C22.3137 12.88 25 15.5104 25 18.7552C25 22 22.3137 24.6304 19 24.6304H18.25"
-          stroke="white"
-          strokeWidth="1.5"
-        />
-        <ellipse cx={19} cy="18.6554" rx="3.75" ry="3.6" fill="white" />
-      </svg>
+      <img
+        className="rounded-full h-[35px] w-[35px] "
+        src="/nefeli.webp"
+        alt=""
+      />
       <div className="absolute left-[70px] top-[-50px]">
         <Lottie
           loop
@@ -346,27 +334,11 @@ function Assistant({ greet, answer }: { greet?: string; answer?: string }) {
       id="answer"
       className="animate-in slide-in-from-bottom-2 duration-700 fade-in max-w-4xl py-2 px-4 sm:px-6 lg:px-8 flex gap-x-2 sm:gap-x-4"
     >
-      <svg
-        className="flex-shrink-0 w-[2.375rem] h-[2.375rem] rounded-full"
-        width={38}
-        height={38}
-        viewBox="0 0 38 38"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect width={38} height={38} rx={6} fill="#2563EB" />
-        <path
-          d="M10 28V18.64C10 13.8683 14.0294 10 19 10C23.9706 10 28 13.8683 28 18.64C28 23.4117 23.9706 27.28 19 27.28H18.25"
-          stroke="white"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M13 28V18.7552C13 15.5104 15.6863 12.88 19 12.88C22.3137 12.88 25 15.5104 25 18.7552C25 22 22.3137 24.6304 19 24.6304H18.25"
-          stroke="white"
-          strokeWidth="1.5"
-        />
-        <ellipse cx={19} cy="18.6554" rx="3.75" ry="3.6" fill="white" />
-      </svg>
+      <img
+        className="rounded-full h-[35px] w-[35px] "
+        src="/nefeli.webp"
+        alt=""
+      />
       <div className="space-y-3">
         {greet && greet.length > 0 && (
           <h2 className="font-medium text-gray-800 dark:text-white text-sm">
@@ -386,7 +358,7 @@ function Assistant({ greet, answer }: { greet?: string; answer?: string }) {
                   onClick={() => postQuery(ch, addMessage, messageHistory)}
                   key={idx + "chips"}
                   type="button"
-                  className="mb-2.5 me-1.5 py-1 px-2 inline-flex justify-center items-center gap-x-2 rounded-lg border border-blue-600 bg-white text-blue-600 align-middle hover:bg-blue-50 text-xs dark:bg-slate-900 dark:text-blue-500 dark:border-blue-500 dark:hover:text-blue-400 dark:hover:border-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                  className="mb-2.5 me-1.5 py-1 px-2 inline-flex justify-center items-center gap-x-2 rounded-lg border border-violet-600 bg-white text-violet-600 align-middle hover:bg-blue-50 text-xs dark:bg-slate-900 dark:text-blue-500 dark:border-blue-500 dark:hover:text-blue-400 dark:hover:border-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                 >
                   {ch}
                 </button>
@@ -398,7 +370,7 @@ function Assistant({ greet, answer }: { greet?: string; answer?: string }) {
             onClick={() => {
               answer && triggerSound(answer);
             }}
-            className="text-black bg-blue-600 p-1 rounded-full cursor-pointer"
+            className="text-black bg-violet-600 p-1 rounded-full cursor-pointer"
           >
             <svg
               className="h-4 w-4 brightness-0 invert-[100%] "
@@ -425,7 +397,7 @@ const User = ({ answer }: { answer: string }) => {
             </span>
           </span>
           <div className="grow mt-2 space-y-3">
-            <p className="text-gray-800 dark:text-gray-200">{answer}</p>
+            <p className="text-gray-800 dark:text-gray-200 text-sm">{answer}</p>
           </div>
         </div>
       </div>

@@ -10,8 +10,8 @@ export function TitleHead() {
           alt=""
         /> */}
       </picture>
-      <h1 className="text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white mt-4">
-        Welcome to Helpdesk
+      <h1 className="text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white mt-4 text-violet-600">
+        Nefeli
       </h1>
       <p className="mt-3 text-gray-600 dark:text-gray-400">
         AI-powered support for your queries
