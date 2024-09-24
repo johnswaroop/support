@@ -83,9 +83,37 @@ const triggerSound = async (text: string) => {
 
 function HomePage() {
   let { messageHistory } = useStore();
+  const [windowVisible, setwindowVisible] = useState(false);
+
+  if (!windowVisible) {
+    return (
+      <div
+        onClick={() => {
+          setwindowVisible(true);
+        }}
+        className="flex fixed right-0 bottom-0 p-4 z-50 cursor-pointer "
+      >
+        <img
+          className="rounded-full h-14 w-14 border-violet-600 border-2"
+          src="/nefeli.webp"
+          alt=""
+        />
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col max-w-[300px] max-h-[500px] mx-auto w-full bg-white rounded-xl overflow-hidden shadow-2xl py-4">
+    <div className="fixed right-0 bottom-0 flex flex-col max-w-[300px] max-h-[500px] mx-auto w-full bg-white rounded-xl overflow-hidden shadow-2xl py-4">
+      <nav className="flex w-full h-8 justify-end px-4 py-0">
+        <button
+          onClick={() => {
+            setwindowVisible(false);
+          }}
+          className="text-red-500 text-xs ml-auto"
+        >
+          Close
+        </button>
+      </nav>
       <div id="scroll" className="py-0  flex flex-col h-full overflow-scroll ">
         {/* End Title */}
         {<TitleHead />}
